@@ -1,12 +1,15 @@
 const express= require('express');
+const multer = require('multer');
+
 const app= express();
-
-
 app.use(express.json());
 
-app.post('/createpost', async (req,res)=>{
-    console.log(req.body);
-})
+const upload = multer({ storage:multer.memoryStorage() });
 
+
+app.post('/createpost',upload.single("image"), async (req,res)=>{
+    console.log(req.body);
+    console.log(req.file);
+})
 
 module.exports= app;
